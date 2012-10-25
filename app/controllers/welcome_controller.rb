@@ -18,8 +18,7 @@ class WelcomeController < ApplicationController
     if User.where(:email=>params[:fieldValue]).length == 0
       render :json=> ['user_email',true]
     else
-      #render :json=> ['user_email',false]
-      render :json=> ['user_email',true]
+      render :json=> ['user_email',false]
     end
   end
 
@@ -27,8 +26,7 @@ class WelcomeController < ApplicationController
     if User.where(:phone_no => params[:fieldValue].to_i).length == 0
       render :json=>['user_phone_no',true]
     else
-      #render :json=>['user_phone_no',false]
-      render :json=>['user_phone_no',true]
+      render :json=>['user_phone_no',false]
     end
 
   end
