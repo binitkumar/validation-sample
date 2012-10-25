@@ -1,0 +1,41 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#new_user").validationEngine();
+  });
+</script>
+
+<h2>User details form</h2>
+
+<%= form_for @user, :url=>{:controller => 'welcome',:action => 'home'},:method=>'post' do |f| %>
+    <% if @user.errors.any? %>
+        <div id=error_explanation>
+          <h2>
+            <%= "#{pluralize(@user.errors.count, "error")} prohibited this admission form from being saved:" %>
+          </h2>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li>
+                  <%= msg %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+  <table>
+   <tr>
+     <td><%=  f.label "Email" %></td>
+     <td><%=  f.text_field :email,:class=>'validate[required,custom[email],ajax[uniqueUserEmail] ]' %></td>
+   </tr>
+   <tr>
+   <td><%=  f.label "Phone No." %></td>
+   <td><%= f.collection_select :country_code_id, @country_codes,:id, :country_code_details %><%= f.text_field :phone_no,:class=>"validate[required,custom[integer],maxsize[10],ajax[uniquePhoneNo]"  %></td>
+   </tr>
+   <tr>
+     <td><%= f.label "Date of Birth" %></td>
+     <td><%=  f.text_field :date_of_birth,:class=>"validate[required,custom[customDateFormat]"  %></td>
+   </tr>
+   <tr>
+     <td colspan=2><%=  f.submit "Submit" %></td>
+   </tr>
+  </table>
+<% end %>
